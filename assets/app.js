@@ -2,7 +2,7 @@
 // define variables
 var searchFormEl = document.querySelector("#search-form");
 var fetchButton = document.querySelector("#fetch-button");
-var cityList = document.querySelector("#citylist")
+var cityList = document.querySelector("#city-list")
 city = "";
 // prevent browser from refreshing
 function formSubmit(event) {
@@ -30,22 +30,27 @@ function getApi(city) {
         })
         .then((requestData) => {
             console.log(requestData); // works
-            console.log(requestData.name) // works name of city
-            console.log(requestData.weather[0].icon) // works weather icon
-            console.log(requestData.main.temp) //works current temperature
-            console.log(requestData.main.humidity) // works humidity
-            console.log(requestData.wind.speed) // works wind speed
-            console.log(requestData.coord) //works uv index
-            results();
+            console.log(requestData.name); // works name of city
+            console.log(requestData.weather[0].icon); // works weather icon
+            console.log(requestData.main.temp); //works current temperature
+            console.log(requestData.main.humidity); // works humidity
+            console.log(requestData.wind.speed); // works wind speed
+            console.log(requestData.coord); //works uv index
+            results(requestData);
         })
        
 };
 
-function results() {
-//    var cityList = document.getElementById("city-list")
-    var createLi = document.createElement("li")
-    createLi.textContent = "";
-    cityList.append(createli)
+// function to create a list of cities searched by user
+function results(requestData) {
+    createLi = document.createElement("li"); // create li element
+    createLi.classList.add("list-group-item");
+    createLi.innerHTML = requestData.name; // input name of city in li
+    cityList.appendChild(createLi); // append to browser (line 37 in html)
+};
+
+// function to show current city weather conditions 
+function currentCity() {
 
 }
 searchFormEl.addEventListener("submit", formSubmit);
