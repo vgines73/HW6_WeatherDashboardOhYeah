@@ -1,29 +1,34 @@
+
+// define variables
 var searchFormEl = document.querySelector("#search-form");
 var fetchButton = document.querySelector("#fetch-button");
 
+// prevent browser from refreshing
 function formSubmit(event) {
     event.preventDefault();
 
     var cityInputVal = document.querySelector("#search-city").value;
-    console.log(cityInputVal);
-    if (!cityInputVal) {
-        console.error("You need type in a city");
-        return;
+    console.log(cityInputVal); // works
+    if (!cityInputVal) {  // if user types an unknown city
+        console.error("You need type in a city I know");
+        alert("You need to type in a city I know") // alert pops up for aware the user
+        return; // starts over
     }
-    getApi(cityInputVal);
+    getApi(cityInputVal); // obtain the city input
 };
 
+// to get the api using fetch
 function getApi(city) {
     var myApiKey = "&appid=453aa8aa937d813f343ce451eb44cfc2"
     var weatherUrl = ("http://api.openweathermap.org/data/2.5/weather?q=" + city + myApiKey);
 
     fetch(weatherUrl)
         .then((response) => {
-            console.log(response);
+            console.log(response); // works
             return response.json();
         })
         .then((requestData) => {
-            console.log(requestData);
+            console.log(requestData); // works
         })
 };
 
