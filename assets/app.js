@@ -35,10 +35,18 @@ function getApi(city) {
             console.log(requestData.main.temp) //works current temperature
             console.log(requestData.main.humidity) // works humidity
             console.log(requestData.wind.speed) // works wind speed
-            console.log(requestData.clouds.all) //works uv index
+            console.log(requestData.coord) //works uv index
+            results();
         })
        
 };
 
+function results() {
+//    var cityList = document.getElementById("city-list")
+    var createLi = document.createElement("li")
+    createLi.textContent = "";
+    cityList.append(createli)
+
+}
 searchFormEl.addEventListener("submit", formSubmit);
 fetchButton.addEventListener("click", getApi);
