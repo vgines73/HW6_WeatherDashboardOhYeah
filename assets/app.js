@@ -24,7 +24,7 @@ function getApi(city) {
     var myApiKey = "&appid=453aa8aa937d813f343ce451eb44cfc2"
     var weatherUrl = ("http://api.openweathermap.org/data/2.5/weather?q=" + city + myApiKey);
 
-    fetch(weatherUrl)
+    fetch(weatherUrl) 
         .then((response) => {
             console.log(response); // works
             return response.json();
@@ -38,8 +38,8 @@ function getApi(city) {
             console.log(requestData.wind.speed); // works wind speed
             console.log(requestData.coord.lat); //works uv index
             console.log(requestData.coord.lon); //works uv index
-            results(requestData);
-            currentCityForecast(requestData)
+            results(requestData); // run results function 
+            currentCityForecast(requestData) // run currentCityForecast function
         })
        
 };
@@ -60,9 +60,11 @@ function currentCityForecast(requestData) {
     cityName = document.createElement("h4"); // create h4 element for title city name
     cityName.classList.add("card-title"); // add class to h4 
     cityName.innerHTML = requestData.name; // input city name from the data
+    // need to add the icon
     tempPara = document.createElement("p"); // create temp paragragh
     tempPara.classList.add("card-text", "current-temp"); // add class to temp paragraph
     tempPara.innerHTML = requestData.main.temp; // input current temp from the data
+    // to convert temp to "imperial" (C to F) - ("api.openweathermap.org/data/2.5/find?q=" + requestData.name + "&units=imperial"
     humidityPara = document.createElement("p"); // create humidity paragraph
     humidityPara.classList.add("card-text", "current-humidity"); // add class to humidity paragraph
     humidityPara.innerHTML = requestData.main.humidity; // input current humidity from data
@@ -82,3 +84,9 @@ function currentCityForecast(requestData) {
 }
 searchFormEl.addEventListener("submit", formSubmit);
 fetchButton.addEventListener("click", getApi);
+
+// fix button issue, changed button type to submit and more errors appear
+// convert temp to F line 67
+// weather icon line 63 then append to cityDiv
+
+// create another function for 5 day forecast
