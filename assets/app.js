@@ -2,7 +2,8 @@
 // define variables
 var searchFormEl = document.querySelector("#search-form");
 var fetchButton = document.querySelector("#fetch-button");
-
+var cityList = document.querySelector("#citylist")
+city = "";
 // prevent browser from refreshing
 function formSubmit(event) {
     event.preventDefault();
@@ -29,7 +30,14 @@ function getApi(city) {
         })
         .then((requestData) => {
             console.log(requestData); // works
+            console.log(requestData.name) // works name of city
+            console.log(requestData.weather[0].icon) // works weather icon
+            console.log(requestData.main.temp) //works current temperature
+            console.log(requestData.main.humidity) // works humidity
+            console.log(requestData.wind.speed) // works wind speed
+            console.log(requestData.clouds.all) //works uv index
         })
+       
 };
 
 searchFormEl.addEventListener("submit", formSubmit);
