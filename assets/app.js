@@ -55,7 +55,6 @@ function getApi(cityInputVal) {
 function results(requestData) {
     createLi = document.createElement("li"); // create li element
     createLi.classList.add("list-group-item");
-    
     createLi.innerHTML = requestData.name; // input name of city in li
     cityList.appendChild(createLi); // append to browser (line 37 in html)
     // console.log(cityList); // works
@@ -87,6 +86,7 @@ function currentCityForecast(requestData) {
     cityDiv.append(cityName, tempPara, humidityPara, windSpeedPara, uvPara) // append all this to citydiv
     // console.log(cityDiv)     // works
     // console.log(currentCity); // works
+    currentCity.innerHTML = ""; // clears the current city div to update the new city that was searched
     currentCity.append(cityDiv); // append cityDiv to currentCity
     // console.log(currentCity) // works
 
@@ -98,5 +98,4 @@ fetchButton.addEventListener("submit", getApi); // works
 // convert temp to F line 67
 // weather icon line 63 then append to cityDiv
 // local storage is inside, but doesn't save the next city
-// When entering a city, main current city section adds the next city below instead of refreshing it.
 // create another function for 5 day forecast
