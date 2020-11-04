@@ -69,10 +69,11 @@ function currentCityForecast(requestData) {
     cityName.classList.add("card-title"); // add class to h4 
     cityName.innerHTML = requestData.name; // input city name from the data
     // weather icon
+    weatherImg = document.createElement("img")
+    weatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData.weather[0].icon + ".png")
     tempPara = document.createElement("p"); // create temp paragragh
     tempPara.classList.add("card-text", "current-temp"); // add class to temp paragraph
-    tempPara.innerHTML = ("Temperature: " + requestData.main.temp); // input current temp from the data
-    // to convert temp to "imperial" (C to F) - ("http://api.openweathermap.org/data/2.5/find?q=" + requestData.name + "&units=imperial"
+    tempPara.innerHTML = ("Temperature: " + Math.ceil((requestData.main.temp - 273.15) * 1.80 + 32) + "&deg" + "F"); // input current temp from the data
     humidityPara = document.createElement("p"); // create humidity paragraph
     humidityPara.classList.add("card-text", "current-humidity"); // add class to humidity paragraph
     humidityPara.innerHTML = ("Humidity: " + requestData.main.humidity); // input current humidity from data
@@ -84,7 +85,7 @@ function currentCityForecast(requestData) {
     uvPara.innerHTML = ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"); // input current uv from data
 
     // its appending time
-    cityDiv.append(cityName, tempPara, humidityPara, windSpeedPara, uvPara) // append all this to citydiv
+    cityDiv.append(cityName, weatherImg, tempPara, humidityPara, windSpeedPara, uvPara) // append all this to citydiv
     // console.log(cityDiv)     // works
     // console.log(currentCity); // works
     currentCity.innerHTML = ""; // clears the current city div to update the new city that was searched
@@ -93,17 +94,29 @@ function currentCityForecast(requestData) {
 }
 
 // function for 5 day forecast
-function futureCityForecast() {
+function futureCityForecast(requestData) {
     cardDiv = document.createElement("div");
-    console.log(cardDiv)
-    cardDiv.classlist.add("card", "text-white", "bg-primary", "mb-3");
-    console.log(cardDiv)
+    console.log(cardDiv) // works
+    cardDiv.classList.add("card", "text-white", "mb-3");
+    //add bg-primary
+    cardBodyDiv = document.createElement("div");
+    dateDiv = document.createElement("h5")
+    dateDiv.classList.add("card-title")
+    dateDiv = "Yo"
+
+    cardBodyDiv.append(dateDiv, tempPara, humidityPara)
+    console.log(cardBodyDiv) // works
+    cardDiv.append(cardBodyDiv)
+    fiveDayForecast.append(cardDiv)
+
 
 }
 searchFormEl.addEventListener("submit", formSubmit); // works
 fetchButton.addEventListener("submit", getApi); // works
 
-// convert temp to F line 67
-// weather icon line 63 then append to cityDiv
+// fix column setting in five day forecast
+// weather icon too big
+// uv converted and needs bg-color
 // local storage is inside, but doesn't save the next city
 // create another function for 5 day forecast
+// able to append forecast but need future dates icon and bg-primary
