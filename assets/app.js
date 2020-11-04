@@ -4,7 +4,7 @@ var searchFormEl = document.querySelector("#search-form");
 var fetchButton = document.querySelector("#fetch-button");
 var cityList = document.querySelector("#city-list")
 var currentCity = document.querySelector("#current-city")
-
+var fiveDayForecast = document.querySelector("#five-day-forecast")
 
 // prevent browser from refreshing
 function formSubmit(event) {
@@ -18,7 +18,7 @@ function formSubmit(event) {
         alert("You need to type in a city I know") // alert pops up for aware the user
         return; // starts over
     }
-    console.log(`cityInput ${cityInputVal}`); // works
+    // console.log(`cityInput ${cityInputVal}`); // works
     getApi(cityInputVal); // obtain the city input
     localStorage.setItem("city", cityInputVal) // saves city in local storage
     savedCities = localStorage.getItem("city"); // doesn't save after refreshing
@@ -47,6 +47,7 @@ function getApi(cityInputVal) {
             // console.log(requestData.coord.lon); //works uv index
             results(requestData); // run results function 
             currentCityForecast(requestData) // run currentCityForecast function
+            futureCityForecast(requestData)
         })
 
 };
@@ -89,7 +90,14 @@ function currentCityForecast(requestData) {
     currentCity.innerHTML = ""; // clears the current city div to update the new city that was searched
     currentCity.append(cityDiv); // append cityDiv to currentCity
     // console.log(currentCity) // works
+}
 
+// function for 5 day forecast
+function futureCityForecast() {
+    cardDiv = document.createElement("div");
+    console.log(cardDiv)
+    cardDiv.classlist.add("card", "text-white", "bg-primary", "mb-3");
+    console.log(cardDiv)
 
 }
 searchFormEl.addEventListener("submit", formSubmit); // works
