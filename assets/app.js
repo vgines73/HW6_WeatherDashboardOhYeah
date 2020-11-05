@@ -82,7 +82,7 @@ function currentCityForecast(requestData) {
     cityDiv.classList.add("card", "card-body"); // add class to city div
     cityName = document.createElement("h4"); // create h4 element for title city name
     cityName.classList.add("card-title"); // add class to h4 
-    cityName.innerHTML = requestData.name + date; // input city name from the data
+    cityName.innerHTML = requestData.name + " " + date; // input city name from the data
     weatherImg = document.createElement("img")
     weatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData.weather[0].icon + ".png")
     weatherImg.setAttribute("style", "width: 50px")
