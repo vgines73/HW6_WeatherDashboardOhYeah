@@ -29,7 +29,7 @@ function formSubmit(event) {
 // to get the api using fetch
 function getApi(cityInputVal) {
     var myApiKey = "&appid=453aa8aa937d813f343ce451eb44cfc2"
-    var weatherUrl = ("http://api.openweathermap.org/data/2.5/weather?q=" + cityInputVal + myApiKey);
+    var weatherUrl = ("http://api.openweathermap.org/data/2.5/weather?q=" + cityInputVal + "&cnt=5" + myApiKey);
 
     fetch(weatherUrl)
         .then((response) => {
@@ -55,6 +55,7 @@ function getApi(cityInputVal) {
 // function to create a list of cities searched by user
 function results(requestData) {
     createLi = document.createElement("li"); // create li element
+    // need to figure out how to make this an input type button
     createLi.classList.add("list-group-item");
     createLi.innerHTML = requestData.name; // input name of city in li
     cityList.appendChild(createLi); // append to browser (line 37 in html)
@@ -93,18 +94,22 @@ function currentCityForecast(requestData) {
     // console.log(currentCity) // works
 }
 
+// function for results of 5 day forecast
+// key for 5 days http://api.openweathermap.org/data/2.5/forecast/daily?q={city name}&cnt=5&appid=453aa8aa937d813f343ce451eb44cfc2"
+
 // function for 5 day forecast
 function futureCityForecast(requestData) {
     cardDiv = document.createElement("div");
     console.log(cardDiv) // works
-    cardDiv.classList.add("card", "text-white", "mb-3");
-    //add bg-primary
+    cardDiv.classList.add("card", "mb-3", "forecast");
+    cardDiv.setAttribute("bg-primary", "text-white");
+    //document.getElementById("forecast").style.background = "blue";
     cardBodyDiv = document.createElement("div");
     dateDiv = document.createElement("h5")
     dateDiv.classList.add("card-title")
     dateDiv = "Yo"
 
-    cardBodyDiv.append(dateDiv, tempPara, humidityPara)
+    cardBodyDiv.append(dateDiv)
     console.log(cardBodyDiv) // works
     cardDiv.append(cardBodyDiv)
     fiveDayForecast.append(cardDiv)
@@ -114,9 +119,9 @@ function futureCityForecast(requestData) {
 searchFormEl.addEventListener("submit", formSubmit); // works
 fetchButton.addEventListener("submit", getApi); // works
 
-// fix column setting in five day forecast
+
 // weather icon too big
-// uv converted and needs bg-color
+// uv converted and needs bg-color text-white padding-13px
 // local storage is inside, but doesn't save the next city
 // create another function for 5 day forecast
 // able to append forecast but need future dates icon and bg-primary
