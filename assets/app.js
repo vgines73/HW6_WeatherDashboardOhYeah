@@ -91,7 +91,7 @@ function currentCityForecast(requestData) {
     uvPara.classList.add("card-text", "current-uv"); // add class to uv paragraph
     uvPara.setAttribute("href", ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"));
     //uvPara.innerHTML = ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"); // input current uv from data
-    console.log(uvPara)
+    //console.log(uvPara)
     // its appending time
     cityDiv.append(cityName, weatherImg, tempPara, humidityPara, windSpeedPara, uvPara) // append all this to citydiv
     // console.log(cityDiv)     // works
@@ -106,27 +106,28 @@ function currentCityForecast(requestData) {
 
 // function for 5 day forecast
 function futureCityForecast(requestData) {
-    cardDiv = document.createElement("div");
-    console.log(cardDiv) // works
-    cardDiv.classList.add("card", "mb-3");
-    cardDiv.setAttribute("class", "text-white bg-primary", "col-sm-2");
-    cardDiv.setAttribute("style", "max-width: 18rem;");
-    cardBodyDiv = document.createElement("div");
-    cardBodyDiv.setAttribute("class", "card-body")
-    console.log(cardBodyDiv);
-    dateDiv = document.createElement("h5");
-    dateDiv.classList.add("card-title");
-    dateDiv = requestData.name;
+    cardDiv = document.createElement("div"); // created card div
+    // console.log(cardDiv); // works
+    cardDiv.setAttribute("class", "card text-white bg-primary col-sm-2 mb-3"); // added class to card div 
+    cardDiv.setAttribute("style", "max-width: 25rem; margin: 13px;"); // added a max width
+    cardBodyDiv = document.createElement("div"); // created card-body div
+    cardBodyDiv.setAttribute("class", "card-body") // added card body a class card-body from bootstrap
+    // console.log(cardBodyDiv); // works
+    dateDiv = document.createElement("h5"); // created a h5 element for the date
+    dateDiv.setAttribute("style", "card-title"); // 
+    dateDiv.innerHTML = requestData.main.temp;
+    console.log(dateDiv);
     futureWeatherImg = document.createElement("img")
     futureWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData.weather[0].icon + ".png")
-    futureWeatherImg.setAttribute("style", "width: 50px", "padding: 13px")
+    futureWeatherImg.setAttribute("style", "width: 50px;")
+    console.log(futureWeatherImg)
     futureTempPara = document.createElement("p")
     futureTempPara.classList.add("card-text")
-    futureTempPara = ("Temp: " + Math.ceil((requestData.main.temp - 273.15) * 1.80 + 32) + "&deg" + "F");
+    futureTempPara.innerHTML = ("Temp: " + Math.ceil((requestData.main.temp - 273.15) * 1.80 + 32) + "&deg" + "F"); // input current temp from the data
     futureHumidityPara = document.createElement("p")
     futureHumidityPara.classList.add("card-text")
-    futureHumidityPara = "Humidity: " + requestData.main.humidity;
-    
+    futureHumidityPara.innerHTML = ("Humidity: " + requestData.main.humidity);
+
     cardBodyDiv.append(dateDiv, futureWeatherImg, futureTempPara, futureHumidityPara)
     console.log(cardBodyDiv) // works
     cardDiv.append(cardBodyDiv)
