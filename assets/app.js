@@ -12,7 +12,7 @@ function formSubmit(event) {
     // console.log("formSubmit") //works
 
     cityInputVal = document.querySelector("#search-city").value;
-    console.log(cityInputVal); // works
+    // console.log(cityInputVal); // works
     if (!cityInputVal) {  // if user types an unknown city
         // console.error("You need type in a city I know");
         alert("You need to type in a city I know") // alert pops up for aware the user
@@ -58,6 +58,8 @@ function results(requestData) {
     // need to figure out how to make this an input type button
     createLi.classList.add("list-group-item");
     createLi.innerHTML = requestData.name; // input name of city in li
+    createLi.setAttribute("input", "button")
+    console.log(createLi)
     cityList.appendChild(createLi); // append to browser (line 37 in html)
     // console.log(cityList); // works
 };
