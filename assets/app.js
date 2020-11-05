@@ -29,15 +29,15 @@ function formSubmit(event) {
 // to get the api using fetch
 function getApi(cityInputVal) {
     var myApiKey = "&appid=453aa8aa937d813f343ce451eb44cfc2"
-    var weatherUrl = ("http://api.openweathermap.org/data/2.5/weather?q=" + cityInputVal + "&cnt=5" + myApiKey);
-
+    var weatherUrl = ("http://api.openweathermap.org/data/2.5/weather?q=" + cityInputVal + "&date" + myApiKey); // supposed to get current city weather forecast for 6 days
+    
     fetch(weatherUrl)
         .then((response) => {
             // console.log(response); // works
             return response.json();
         })
         .then((requestData) => {
-            // console.log(requestData); // works
+            console.log(requestData); // works
             // console.log(requestData.name); // works name of city
             // console.log(requestData.weather[0].icon); // works weather icon
             // console.log(requestData.main.temp); //works current temperature
@@ -45,10 +45,17 @@ function getApi(cityInputVal) {
             // console.log(requestData.wind.speed); // works wind speed
             // console.log(requestData.coord.lat); //works uv index
             // console.log(requestData.coord.lon); //works uv index
+            
             results(requestData); // run results function 
             currentCityForecast(requestData) // run currentCityForecast function
             futureCityForecast(requestData) // runs five day forecast * doesn't show all five
         })
+    // uvUrl = ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2");
+    // fetch(uvUrl)
+    //     .then((response) => {
+    //         console.log(response)
+    //         return response.json();
+    //     })
 
 };
 
@@ -70,6 +77,7 @@ function clickingCity(e) {
 }
 // function to show current city weather conditions 
 function currentCityForecast(requestData) {
+    
     cityDiv = document.createElement("div"); // create city div
     cityDiv.classList.add("card", "card-body"); // add class to city div
     cityName = document.createElement("h4"); // create h4 element for title city name
@@ -90,7 +98,7 @@ function currentCityForecast(requestData) {
     uvPara = document.createElement("p"); // create uv paragraph
     uvPara.classList.add("card-text", "current-uv"); // add class to uv paragraph
     uvPara.setAttribute("href", ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"));
-    //uvPara.innerHTML = ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"); // input current uv from data
+    uvPara.innerHTML = requestData.dt// input current uv from data
     //console.log(uvPara)
     // its appending time
     cityDiv.append(cityName, weatherImg, tempPara, humidityPara, windSpeedPara, uvPara) // append all this to citydiv
@@ -106,6 +114,16 @@ function currentCityForecast(requestData) {
 
 // function for 5 day forecast
 function futureCityForecast(requestData) {
+
+    // // date for 5 day forecast
+    // today = moment().format('L');
+    // day2 = moment().add(1, 'days').calendar();
+    // day3 = moment().add(2, 'days').calendar();
+    // day4 = moment().add(3, 'days').calendar();
+    // day5 = moment().add(4, 'days').calendar();
+    // day6 = moment().add(5, 'days').calendar();
+
+    // creating the forecast
     cardDiv = document.createElement("div"); // created card div
     // console.log(cardDiv); // works
     cardDiv.setAttribute("class", "card text-white bg-primary col-sm-2 mb-3"); // added class to card div 
@@ -114,10 +132,10 @@ function futureCityForecast(requestData) {
     cardBodyDiv.setAttribute("class", "card-body") // added card body a class card-body from bootstrap
     // console.log(cardBodyDiv); // works
     dateDiv = document.createElement("h5"); // created a h5 element for the date
-    dateDiv.setAttribute("style", "card-title"); // 
-    dateDiv.innerHTML = requestData.main.temp;
-    console.log(dateDiv);
-    futureWeatherImg = document.createElement("img")
+    dateDiv.setAttribute("style", "card-title"); // set card-title style
+    dateDiv.innerHTML = requestData.main.temp; // show date
+    // console.log(dateDiv); // works
+    futureWeatherImg = document.createElement("img") // create img div
     futureWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData.weather[0].icon + ".png")
     futureWeatherImg.setAttribute("style", "width: 50px;")
     console.log(futureWeatherImg)
@@ -128,12 +146,12 @@ function futureCityForecast(requestData) {
     futureHumidityPara.classList.add("card-text")
     futureHumidityPara.innerHTML = ("Humidity: " + requestData.main.humidity);
 
+    // its appending time
     cardBodyDiv.append(dateDiv, futureWeatherImg, futureTempPara, futureHumidityPara)
     console.log(cardBodyDiv) // works
     cardDiv.append(cardBodyDiv)
     fiveDayForecast.innerHTML = "";
     fiveDayForecast.append(cardDiv)
-
 
 }
 searchFormEl.addEventListener("submit", formSubmit); // works
