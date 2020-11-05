@@ -48,7 +48,7 @@ function getApi(cityInputVal) {
             
             results(requestData); // run results function 
             currentCityForecast(requestData) // run currentCityForecast function
-            //futureCityForecast(requestData2) // runs five day forecast * doesn't show all five
+            getApifuture(requestData)
         })
     // uvUrl = ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2");
     // fetch(uvUrl)
@@ -98,7 +98,7 @@ function currentCityForecast(requestData) {
     uvPara = document.createElement("p"); // create uv paragraph
     uvPara.classList.add("card-text", "current-uv"); // add class to uv paragraph
     uvPara.setAttribute("href", ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"));
-    //uvPara.innerHTML = // input current uv from data
+    uvPara.innerHTML = "UV Index: "// input current uv from data
     //console.log(uvPara)
     // its appending time
     cityDiv.append(cityName, weatherImg, tempPara, humidityPara, windSpeedPara, uvPara) // append all this to citydiv
@@ -109,59 +109,56 @@ function currentCityForecast(requestData) {
     // console.log(currentCity) // works
 }
 
-// function for results of 5 day forecast
-// key for 5 days http://api.openweathermap.org/data/2.5/forecast/daily?q={city name}&cnt=5&appid=453aa8aa937d813f343ce451eb44cfc2"
-
 // function for 5 day forecast
-// function getApifuture(cityInputVal) {
-//     var forecastUrl = ("http://api.openweathermap.org/data/2.5/forecast?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2")
-//     fetch(forecastUrl)
-//         .then((response) => {
-//             console.log(response)
-//             return response.json();
-//         })
-//         .then((requestData2) => {
-//             console.log(requestData2)
-//         })
-// }
-// function futureCityForecast(requestData2) {
+function getApifuture(requestData) {
+    var forecastUrl = ("http://api.openweathermap.org/data/2.5/forecast?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2")
+    fetch(forecastUrl)
+        .then((response) => {
+            console.log(response) // works
+            return response.json();
+        })
+        .then((requestData2) => {
+            console.log(requestData2) // works           
+            futureCityForecast(requestData2) // runs five day forecast * doesn't show all five
+        })
+}
 
-//     // creating the forecast
-//     cardDiv = document.createElement("div"); // created card div
-//     // console.log(cardDiv); // works
-//     cardDiv.setAttribute("class", "card text-white bg-primary col-sm-2 mb-3"); // added class to card div 
-//     cardDiv.setAttribute("style", "max-width: 25rem; margin: 13px;"); // added a max width
-//     cardBodyDiv = document.createElement("div"); // created card-body div
-//     cardBodyDiv.setAttribute("class", "card-body") // added card body a class card-body from bootstrap
-//     // console.log(cardBodyDiv); // works
-//     dateDiv = document.createElement("h5"); // created a h5 element for the date
-//     dateDiv.setAttribute("style", "card-title"); // set card-title style
-//     dateDiv.innerHTML = requestData2.main.temp; // show date
-//     // console.log(dateDiv); // works
-//     futureWeatherImg = document.createElement("img") // create img div
-//     futureWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData2.weather[0].icon + ".png")
-//     futureWeatherImg.setAttribute("style", "width: 50px;")
-//     // console.log(futureWeatherImg) 
-//     futureTempPara = document.createElement("p")
-//     futureTempPara.classList.add("card-text")
-//     futureTempPara.innerHTML = ("Temp: " + Math.ceil((requestData2.main.temp - 273.15) * 1.80 + 32) + "&deg" + "F"); // input current temp from the data
-//     futureHumidityPara = document.createElement("p")
-//     futureHumidityPara.classList.add("card-text")
-//     futureHumidityPara.innerHTML = ("Humidity: " + requestData2.main.humidity);
+function futureCityForecast(requestData2) {
 
-//     // its appending time
-//     cardBodyDiv.append(dateDiv, futureWeatherImg, futureTempPara, futureHumidityPara)
-//     //console.log(cardBodyDiv) // works
-//     cardDiv.append(cardBodyDiv)
-//     fiveDayForecast.innerHTML = "";
-//     fiveDayForecast.append(cardDiv)
+    // creating the forecast
+    cardDiv = document.createElement("div"); // created card div
+    // console.log(cardDiv); // works
+    cardDiv.setAttribute("class", "card text-white bg-primary col-sm-2 mb-3"); // added class to card div 
+    cardDiv.setAttribute("style", "max-width: 25rem; margin: 13px;"); // added a max width
+    cardBodyDiv = document.createElement("div"); // created card-body div
+    cardBodyDiv.setAttribute("class", "card-body") // added card body a class card-body from bootstrap
+    // console.log(cardBodyDiv); // works
+    dateDiv = document.createElement("h5"); // created a h5 element for the date
+    dateDiv.setAttribute("style", "card-title"); // set card-title style
+    dateDiv.innerHTML = moment.unix(requestData2.dt).format("MM/DD/YYYY"); // show date
+    // console.log(dateDiv); // works
+    futureWeatherImg = document.createElement("img") // create img div
+    futureWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData2.weather[0].icon + ".png")
+    futureWeatherImg.setAttribute("style", "width: 50px;")
+    // console.log(futureWeatherImg) 
+    futureTempPara = document.createElement("p")
+    futureTempPara.classList.add("card-text")
+    futureTempPara.innerHTML = ("Temp: " + Math.ceil((requestData2.main.temp - 273.15) * 1.80 + 32) + "&deg" + "F"); // input current temp from the data
+    futureHumidityPara = document.createElement("p")
+    futureHumidityPara.classList.add("card-text")
+    futureHumidityPara.innerHTML = ("Humidity: " + requestData2.main.humidity);
 
-// }
+    // its appending time
+    cardBodyDiv.append(dateDiv, futureWeatherImg, futureTempPara, futureHumidityPara)
+    //console.log(cardBodyDiv) // works
+    cardDiv.append(cardBodyDiv)
+    fiveDayForecast.innerHTML = "";
+    fiveDayForecast.append(cardDiv)
+}
 searchFormEl.addEventListener("submit", formSubmit); // works
 fetchButton.addEventListener("submit", getApi); // works
 
-// issues with obtaining date even though i added it into querystring url
 // searched city input button works but when click appends a new button.
 // uv converted and needs bg-color text-white
 // local storage is inside, but doesn't save the next city inputted
-// create another function for 5 day forecast
+// function for 5 day forecast not working
