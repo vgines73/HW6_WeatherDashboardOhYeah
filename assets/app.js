@@ -62,8 +62,12 @@ function results(requestData) {
     console.log(createLi)
     cityList.appendChild(createLi); // append to browser (line 37 in html)
     // console.log(cityList); // works
+    createLi.addEventListener("click", clickingCity);
 };
 
+function clickingCity(e) {
+    getApi(e.target.textContent)
+}
 // function to show current city weather conditions 
 function currentCityForecast(requestData) {
     cityDiv = document.createElement("div"); // create city div
@@ -104,8 +108,8 @@ function currentCityForecast(requestData) {
 function futureCityForecast(requestData) {
     cardDiv = document.createElement("div");
     console.log(cardDiv) // works
-    cardDiv.classList.add("card", "mb-3", "col-sm-2");
-    cardDiv.setAttribute("class", "text-white bg-primary");
+    cardDiv.classList.add("card", "mb-3");
+    cardDiv.setAttribute("class", "text-white bg-primary", "col-sm-2");
     cardDiv.setAttribute("style", "max-width: 18rem;");
     cardBodyDiv = document.createElement("div");
     cardBodyDiv.setAttribute("class", "card-body")
@@ -118,10 +122,11 @@ function futureCityForecast(requestData) {
     futureWeatherImg.setAttribute("style", "width: 50px", "padding: 13px")
     futureTempPara = document.createElement("p")
     futureTempPara.classList.add("card-text")
-    futureTempPara = "Temp:" + (Math.ceil((requestData.main.temp - 273.15) * 1.80 + 32) + "&deg" + "F");
+    futureTempPara = ("Temp: " + Math.ceil((requestData.main.temp - 273.15) * 1.80 + 32) + "&deg" + "F");
     futureHumidityPara = document.createElement("p")
     futureHumidityPara.classList.add("card-text")
-    futureHumidityPara = requestData.main.humidity;
+    futureHumidityPara = "Humidity: " + requestData.main.humidity;
+    
     cardBodyDiv.append(dateDiv, futureWeatherImg, futureTempPara, futureHumidityPara)
     console.log(cardBodyDiv) // works
     cardDiv.append(cardBodyDiv)
@@ -134,7 +139,7 @@ searchFormEl.addEventListener("submit", formSubmit); // works
 fetchButton.addEventListener("submit", getApi); // works
 
 
-
+// searched city input button works but when click appends a new button.
 // uv converted and needs bg-color text-white padding-13px
 // local storage is inside, but doesn't save the next city
 // create another function for 5 day forecast
