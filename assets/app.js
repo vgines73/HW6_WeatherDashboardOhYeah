@@ -5,7 +5,7 @@ var fetchButton = document.querySelector("#fetch-button");
 var cityList = document.querySelector("#city-list")
 var currentCity = document.querySelector("#current-city")
 var dayOneForecast = document.querySelector("#day-one-forecast")
-
+var dayTwoForecast = document.querySelector("#day-two-forecast")
 // prevent browser from refreshing
 function formSubmit(event) {
     event.preventDefault();
@@ -122,7 +122,8 @@ function getApifuture(requestData) {
         })
         .then((requestData2) => {
             console.log(requestData2) // works           
-            firstDayForecast(requestData2) // runs five day forecast * doesn't show all five
+            firstDayForecast(requestData2) // runs first day
+            secondDayForecast(requestData2) // runs second day
         })
 }
 // function to show 5 day forecast
@@ -138,7 +139,7 @@ function firstDayForecast(requestData2) {
     // console.log(cardBodyDiv); // works
     dateDiv = document.createElement("h5"); // created a h5 element for the date
     dateDiv.setAttribute("style", "card-title"); // set card-title style
-    dateDiv.innerHTML = moment.unix(requestData2.list[2].dt).format("MM/DD/YYYY"); // show date
+    dateDiv.innerHTML = moment.unix(requestData2.list[1].dt).format("MM/DD/YYYY"); // show date
     console.log(dateDiv); // works
     futureWeatherImg = document.createElement("img") // create img div
     futureWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData2.list[1].weather[0].icon + ".png")
@@ -146,10 +147,10 @@ function firstDayForecast(requestData2) {
     console.log(futureWeatherImg) 
     futureTempPara = document.createElement("p")
     futureTempPara.classList.add("card-text")
-    futureTempPara.innerHTML = ("Temp: " + Math.ceil((requestData2.list[1].main.temp - 273.15) * 1.80 + 32) + "&deg" + "F"); // input current temp from the data
+    futureTempPara.innerHTML = ("Temp: " + Math.ceil((requestData2.list[1].main.temp - 273.15) * 1.80 + 32) + " &deg" + "F"); // input current temp from the data
     futureHumidityPara = document.createElement("p")
     futureHumidityPara.classList.add("card-text")
-    futureHumidityPara.innerHTML = ("Humidity: " + requestData2.list[1].main.humidity);
+    futureHumidityPara.innerHTML = ("Humidity: " + requestData2.list[1].main.humidity + " %");
 
     // its appending time
     cardBodyDiv.append(dateDiv, futureWeatherImg, futureTempPara, futureHumidityPara)
@@ -157,12 +158,43 @@ function firstDayForecast(requestData2) {
     cardDiv.append(cardBodyDiv)
     dayOneForecast.innerHTML = "";
     dayOneForecast.append(cardDiv)
-    
-    // for (let i = 1; i <= 5; i++) {
-    //     requestData2[i].append(fiveDayForecast)
-        
-    // }
 }
+
+function secondDayForecast(requestData2) {
+
+    // creating the forecast
+    cardTwoDiv = document.createElement("div"); // created card div
+    // console.log(cardTwoDiv); // works
+    cardTwoDiv.setAttribute("class", "card text-white bg-primary col-sm-2 mb-3"); // added class to card div 
+    cardTwoDiv.setAttribute("style", "max-width: 25rem; margin: 13px;"); // added a max width
+    cardBodyTwoDiv = document.createElement("div"); // created card-body div
+    cardBodyTwoDiv.setAttribute("class", "card-body") // added card body a class card-body from bootstrap
+    // console.log(cardBodyTwoDiv); // works
+    dateTwoDiv = document.createElement("h5"); // created a h5 element for the date
+    dateTwoDiv.setAttribute("style", "card-title"); // set card-title style
+    dateTwoDiv.innerHTML = moment.unix(requestData2.list[2].dt).format("MM/DD/YYYY"); // show date
+    console.log(dateTwoDiv); // works
+    futureTwoWeatherImg = document.createElement("img") // create img div
+    futureTwoWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData2.list[2].weather[0].icon + ".png")
+    futureTwoWeatherImg.setAttribute("style", "width: 50px;")
+    console.log(futureTwoWeatherImg) 
+    futureTwoTempPara = document.createElement("p")
+    futureTwoTempPara.classList.add("card-text")
+    futureTwoTempPara.innerHTML = ("Temp: " + Math.ceil((requestData2.list[2].main.temp - 273.15) * 1.80 + 32) + " &deg" + "F"); // input current temp from the data
+    console.log(futureTwoTempPara)
+    futureTwoHumidityPara = document.createElement("p")
+    futureTwoHumidityPara.classList.add("card-text")
+    futureTwoHumidityPara.innerHTML = ("Humidity: " + requestData2.list[2].main.humidity + " %");
+
+    // its appending time
+    cardBodyTwoDiv.append(dateTwoDiv, futureTwoWeatherImg, futureTwoTempPara, futureTwoHumidityPara)
+    //console.log(cardBodyDiv) // works
+    cardTwoDiv.append(cardBodyTwoDiv)
+    dayTwoForecast.innerHTML = "";
+    dayTwoForecast.append(cardTwoDiv)
+}
+
+
 searchFormEl.addEventListener("submit", formSubmit); // works
 fetchButton.addEventListener("submit", getApi); // works
 
