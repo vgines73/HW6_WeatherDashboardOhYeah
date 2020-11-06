@@ -140,7 +140,7 @@ function firstDayForecast(requestData2) {
     cardDiv = document.createElement("div"); // created card div
     // console.log(cardDiv); // works
     cardDiv.setAttribute("class", "card text-white bg-primary col-sm-2 mb-3"); // added class to card div 
-    cardDiv.setAttribute("style", "max-width: 12rem; margin: 13px;"); // added a max width
+    cardDiv.setAttribute("style", "max-width: 12rem;"); // added a max width
     cardBodyDiv = document.createElement("div"); // created card-body div
     cardBodyDiv.setAttribute("class", "card-body") // added card body a class card-body from bootstrap
     // console.log(cardBodyDiv); // works
@@ -173,7 +173,7 @@ function secondDayForecast(requestData2) {
     cardTwoDiv = document.createElement("div"); // created card div
     // console.log(cardTwoDiv); // works
     cardTwoDiv.setAttribute("class", "card text-white bg-primary col-sm-2 mb-3"); // added class to card div 
-    cardTwoDiv.setAttribute("style", "max-width: 12rem; margin: 13px;"); // added a max width
+    cardTwoDiv.setAttribute("style", "max-width: 12rem;"); // added a max width
     cardBodyTwoDiv = document.createElement("div"); // created card-body div
     cardBodyTwoDiv.setAttribute("class", "card-body") // added card body a class card-body from bootstrap
     // console.log(cardBodyTwoDiv); // works
@@ -207,9 +207,9 @@ function thirdDayForecast(requestData2) {
     cardThreeDiv = document.createElement("div"); // created card div
     // console.log(cardThreeDiv); // works
     cardThreeDiv.setAttribute("class", "card text-white bg-primary col-sm-2 mb-3"); // added class to card div 
-    cardThreeDiv.setAttribute("style", "max-width: 12rem; margin: 13px;"); // added a max width
+    cardThreeDiv.setAttribute("style", "max-width: 12rem;"); // added a max width
     cardBodyThreeDiv = document.createElement("div"); // created card-body div
-    cardBodyTwoDiv.setAttribute("class", "card-body") // added card body a class card-body from bootstrap
+    cardBodyThreeDiv.setAttribute("class", "card-body") // added card body a class card-body from bootstrap
     // console.log(cardBodyThreeDiv); // works
     dateThreeDiv = document.createElement("h5"); // created a h5 element for the date
     dateThreeDiv.setAttribute("style", "card-title"); // set card-title style
@@ -241,7 +241,7 @@ function fourthDayForecast(requestData2) {
     cardFourDiv = document.createElement("div"); // created card div
     // console.log(cardFourDiv); // works
     cardFourDiv.setAttribute("class", "card text-white bg-primary col-sm-2 mb-3"); // added class to card div 
-    cardFourDiv.setAttribute("style", "max-width: 12rem; margin: 13px;"); // added a max width
+    cardFourDiv.setAttribute("style", "max-width: 12rem;"); // added a max width
     cardBodyFourDiv = document.createElement("div"); // created card-body div
     cardBodyFourDiv.setAttribute("class", "card-body") // added card body a class card-body from bootstrap
     // console.log(cardBodyFourDiv); // works
@@ -275,7 +275,7 @@ function fifthDayForecast(requestData2) {
     cardFiveDiv = document.createElement("div"); // created card div
     // console.log(cardFiveDiv); // works
     cardFiveDiv.setAttribute("class", "card text-white bg-primary col-sm-2 mb-3"); // added class to card div 
-    cardFiveDiv.setAttribute("style", "max-width: 12rem; margin: 13px;"); // added a max width
+    cardFiveDiv.setAttribute("style", "max-width: 12rem"); // added a max width
     cardBodyFiveDiv = document.createElement("div"); // created card-body div
     cardBodyFiveDiv.setAttribute("class", "card-body") // added card body a class card-body from bootstrap
     // console.log(cardBodyFiveDiv); // works
@@ -310,5 +310,5 @@ fetchButton.addEventListener("submit", getApi); // works
 // searched city input button works but when click appends a new button.
 // uv converted and needs bg-color text-white
 // local storage is inside, but doesn't save the next city inputted
-// function for 5 day forecast not working
-// how to append 5 days 
+// fix column and dates in 5 day forecast 
+// comment
