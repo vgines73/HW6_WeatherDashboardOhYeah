@@ -15,6 +15,7 @@
 <body>
     <header>
         <div class="container">
+            <!-- nav bar for the weather dashboard title -->
             <nav class="navbar-dark bg-dark">
                 <h1 class="text-center text-white">Weather Dashboard</h1>
             </nav>
@@ -23,8 +24,10 @@
     <section>
         <div class="container">
             <div class="row">
+                <!-- search bar with list of previous cities after entered/clicked-->
                 <div class="col-sm-3">
                     <h5>Search for a City:</h5>
+                    <!-- search bar -->
                     <form id="search-form" class="input-group mb-4">
                         <input id="search-city" type="text" class="form-control" placeholder="" aria-label=""
                             aria-describedby="button-addon2">
@@ -34,6 +37,7 @@
                             </button>
                         </div>
                     </form>
+                    <!-- previous cities searched after entered/clicked -->
                     <div class="card" style="width: 110%">
                         <ul id="city-list" class="list-group list-group-flush">
                             <!-- Searched cities go here -->
@@ -41,17 +45,19 @@
                     </div>
                 </div>
                 <div class="col-sm-9">
+                    <!-- current city data-->
                     <div id="current-city">
-
+                        <!-- current city data goes here -->
                     </div>
+                    <!-- 5 day forecast data -->
                     <div class="col-sm-12">
                         <h5 style="padding-top: 10px;">5-Day Forecast:</h5>
                         <div class="row">
-                            <div id="day-one-forecast"></div>
-                            <div id="day-two-forecast"></div>
-                            <div id="day-three-forecast"></div>
-                            <div id="day-four-forecast"></div>
-                            <div id="day-five-forecast"></div>
+                            <div id="day-one-forecast"></div> <!-- data for first day forecast data goes in this div -->
+                            <div id="day-two-forecast"></div> <!-- data for second day forecast data goes in this div -->
+                            <div id="day-three-forecast"></div> <!-- data for third day forecast data goes in this div -->
+                            <div id="day-four-forecast"></div> <!-- data for fourth day forecast data goes in this div -->
+                            <div id="day-five-forecast"></div> <!-- data for fifth day forecast data goes in this div -->
                         </div>
                     </div>
                 </div>

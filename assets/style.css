@@ -1,6 +1,6 @@
 .col-sm-2 {
-    margin: 7px;
-    padding-left: 0!important;
-    padding-right: 0!important;
-    width: fit-content!important;
+    margin: 7px; /* spacing in between forecast */
+    padding-left: 0!important; /* changed set padding-left from bootstrap to 0 */
+    padding-right: 0!important; /* changed set padding-right from bootstrap to 0 */
+    width: fit-content!important; /* changed set width from bootstrap to fit the content */
 }
