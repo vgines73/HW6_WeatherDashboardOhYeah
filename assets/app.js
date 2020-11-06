@@ -51,7 +51,7 @@ function getApi(cityInputVal) {
             // console.log(requestData.coord.lon); //works uv index
 
             results(requestData); // run results function 
-            getUvUrl(requestData);
+            getUvUrl(requestData); // runs getUvUrl function
             currentCityForecast(requestData); // run currentCityForecast function
             getApiFuture(requestData); // run getApiFuture function
         });
@@ -60,11 +60,10 @@ function getApi(cityInputVal) {
 // function to create a list of cities searched by user
 function results(requestData) {
     createLi = document.createElement("li"); // create li element
-    // need to figure out how to make this an input type button
     createLi.classList.add("list-group-item");
     createLi.innerHTML = requestData.name; // input name of city in li
     createLi.setAttribute("input", "button")
-    //console.log(createLi)
+    console.log(createLi)
     cityList.appendChild(createLi); // append to browser (line 37 in html)
     // console.log(cityList); // works
     createLi.addEventListener("click", clickingCity);
@@ -73,6 +72,7 @@ function results(requestData) {
 // function to click the input buttons of past cities searched
 function clickingCity(e) {
     getApi(e.target.textContent);
+    
 }
 
 // function to fetch uv index
@@ -90,24 +90,24 @@ function getUvUrl(requestData) {
 };
 // function to show current city weather conditions 
 function currentCityForecast(requestData) {
-    date = moment.unix(requestData.dt).format("MM/DD/YYYY");
+    date = moment.unix(requestData.dt).format("MM/DD/YYYY"); // current date converted unix code with moment
     cityDiv = document.createElement("div"); // create city div
     cityDiv.classList.add("card", "card-body"); // add class to city div
     cityName = document.createElement("h4"); // create h4 element for title city name
     cityName.classList.add("card-title"); // add class to h4 
     cityName.innerHTML = requestData.name + " " + "(" + date + ")"; // input city name from the data
-    weatherImg = document.createElement("img");
-    weatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData.weather[0].icon + ".png");
-    weatherImg.setAttribute("style", "width: 50px")
+    weatherImg = document.createElement("img"); // create img div
+    weatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData.weather[0].icon + ".png"); // shows weather img
+    weatherImg.setAttribute("style", "width: 50px") // added width to make image smaller
     tempPara = document.createElement("p"); // create temp paragragh
     tempPara.classList.add("card-text", "current-temp"); // add class to temp paragraph
-    tempPara.innerHTML = ("Temperature: " + Math.ceil((requestData.main.temp - 273.15) * 1.80 + 32) + " &deg" + "F"); // input current temp from the data
+    tempPara.innerHTML = ("Temperature: " + Math.ceil((requestData.main.temp - 273.15) * 1.80 + 32) + " &deg" + "F"); // shows temp data. 
     humidityPara = document.createElement("p"); // create humidity paragraph
     humidityPara.classList.add("card-text", "current-humidity"); // add class to humidity paragraph
-    humidityPara.innerHTML = ("Humidity: " + requestData.main.humidity + " %"); // input current humidity from data
+    humidityPara.innerHTML = ("Humidity: " + requestData.main.humidity + " %"); // shows humidity data
     windSpeedPara = document.createElement("p"); // create wind speed paragraph
     windSpeedPara.classList.add("card-text", "current-wind-speed"); // add class to wind speed paragraph
-    windSpeedPara.innerHTML = ("Wind Speed: " + requestData.wind.speed + " MPH"); // input current wind speed from data
+    windSpeedPara.innerHTML = ("Wind Speed: " + requestData.wind.speed + " MPH"); // shows wind speed data
     uvPara = document.createElement("p"); // create uv paragraph
     uvPara.classList.add("card-text", "current-uv"); // add class to uv paragraph
     uvPara.setAttribute("href", ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"));
@@ -117,18 +117,21 @@ function currentCityForecast(requestData) {
     // conditionals for different UV levels
     if (uvData.value < 3) {
         document.getElementsByClassName("current-uv"); // grabbing class name
+        inputTextUV = document.createElement("div")
         inputTextUV.setAttribute("input", "button"); // input button
         inputTextUV.setAttribute("style", "btn btn-success"); // set button to green
         uvPara.append(inputTextUV); // append to uvPara
         console.log(uvPara); 
     } else if (uvData.value >= 3) {
         document.getElementsByClassName("current-uv"); // grabbing class name
+        inputTextUV = document.createElement("div")
         inputTextUV.setAttribute("input", "button"); // input button
         inputTextUV.setAttribute("style", "btn btn-warning"); // set button color to yellow
         uvPara.append(inputTextUV); // append to uvPara
         console.log(uvPara);
     } else {
         document.getElementsByClassName("current-uv"); // grabbing class name
+        inputTextUV = document.createElement("div")
         inputTextUV.setAttribute("input", "button"); // input button
         inputTextUV.setAttribute("style", "btn btn-danger"); // set button colo to red
         uvPara.append(inputTextUV); // append to uvPara
@@ -146,14 +149,14 @@ function currentCityForecast(requestData) {
 
 // function to fetch 5 day forecast
 function getApiFuture(requestData) {
-    var forecastUrl = ("http://api.openweathermap.org/data/2.5/forecast?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2")
+    var forecastUrl = ("http://api.openweathermap.org/data/2.5/forecast?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&cnt=50&appid=453aa8aa937d813f343ce451eb44cfc2")
     fetch(forecastUrl)
         .then((response) => {
             // console.log(response) // works
             return response.json();
         })
         .then((requestData2) => {
-            // console.log(requestData2) // works           
+            //console.log(requestData2) // works           
             firstDayForecast(requestData2) // runs first day
             secondDayForecast(requestData2) // runs second day
             thirdDayForecast(requestData2) // runs third day
@@ -174,7 +177,7 @@ function firstDayForecast(requestData2) {
     // console.log(cardBodyDiv); // works
     dateDiv = document.createElement("h5"); // created a h5 element for the date
     dateDiv.setAttribute("style", "card-title"); // set card-title style
-    dateDiv.innerHTML = moment.unix(requestData2.list[2].dt).format("MM/DD/YYYY"); // show date
+    dateDiv.innerHTML = moment.unix(requestData2.list[8].dt).format("MM/DD/YYYY"); // show date
     // console.log(dateDiv); // works
     dayOneWeatherImg = document.createElement("img"); // create img div
     dayOneWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData2.list[1].weather[0].icon + ".png"); // show weather icon
@@ -210,7 +213,7 @@ function secondDayForecast(requestData2) {
     // console.log(cardBodyTwoDiv); // works
     dateTwoDiv = document.createElement("h5"); // created a h5 element for the date
     dateTwoDiv.setAttribute("style", "card-title"); // set card-title style
-    dateTwoDiv.innerHTML = moment.unix(requestData2.list[10].dt).format("MM/DD/YYYY"); // show date
+    dateTwoDiv.innerHTML = moment.unix(requestData2.list[16].dt).format("MM/DD/YYYY"); // show date
     // console.log(dateTwoDiv); // works
     dayTwoWeatherImg = document.createElement("img"); // create img div
     dayTwoWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData2.list[2].weather[0].icon + ".png"); // show weather icon
@@ -246,7 +249,7 @@ function thirdDayForecast(requestData2) {
     // console.log(cardBodyThreeDiv); // works
     dateThreeDiv = document.createElement("h5"); // created a h5 element for the date
     dateThreeDiv.setAttribute("style", "card-title"); // set card-title style
-    dateThreeDiv.innerHTML = moment.unix(requestData2.list[20].dt).format("MM/DD/YYYY"); // show date
+    dateThreeDiv.innerHTML = moment.unix(requestData2.list[24].dt).format("MM/DD/YYYY"); // show date
     // console.log(dateThreeDiv); // works
     dayThreeWeatherImg = document.createElement("img"); // create img div
     dayThreeWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData2.list[3].weather[0].icon + ".png"); // show weather icon
@@ -282,7 +285,7 @@ function fourthDayForecast(requestData2) {
     // console.log(cardBodyFourDiv); // works
     dateFourDiv = document.createElement("h5"); // created a h5 element for the date
     dateFourDiv.setAttribute("style", "card-title"); // set card-title style
-    dateFourDiv.innerHTML = moment.unix(requestData2.list[30].dt).format("MM/DD/YYYY"); // show date
+    dateFourDiv.innerHTML = moment.unix(requestData2.list[32].dt).format("MM/DD/YYYY"); // show date
     // console.log(dateFourDiv); // works
     dayFourWeatherImg = document.createElement("img"); // create img div
     dayFourWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData2.list[4].weather[0].icon + ".png"); // show weather icon
