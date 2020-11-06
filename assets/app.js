@@ -9,7 +9,7 @@ var dayTwoForecast = document.querySelector("#day-two-forecast")
 var dayThreeForecast = document.querySelector("#day-three-forecast")
 var dayFourForecast = document.querySelector("#day-four-forecast")
 var dayFiveForecast = document.querySelector("#day-five-forecast")
-
+uvData = [];
 // prevent browser from refreshing
 function formSubmit(event) {
     event.preventDefault();
@@ -51,8 +51,9 @@ function getApi(cityInputVal) {
             // console.log(requestData.coord.lon); //works uv index
 
             results(requestData); // run results function 
+            getUvUrl(requestData);
             currentCityForecast(requestData); // run currentCityForecast function
-            getApifuture(requestData);
+            getApiFuture(requestData); // run getApiFuture function
         });
 };
 
@@ -77,16 +78,15 @@ function clickingCity(e) {
 // function to fetch uv index
 function getUvUrl(requestData) {
     uvUrl = ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2");
-    console.log(uvUrl);
+    console.log(uvUrl); // works
     fetch(uvUrl)
         .then((response) => {
-            console.log(response);
+            console.log(response); // works
             return response.json();
         })
         .then((uvData) => {
-            console.log(uvData)
+            console.log(uvData) // works
         })
-
 };
 // function to show current city weather conditions 
 function currentCityForecast(requestData) {
@@ -111,7 +111,7 @@ function currentCityForecast(requestData) {
     uvPara = document.createElement("p"); // create uv paragraph
     uvPara.classList.add("card-text", "current-uv"); // add class to uv paragraph
     uvPara.setAttribute("href", ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"));
-    uvPara.innerHTML = "UV Index: "// input current uv from data
+    uvPara.innerHTML = ("UV Index: " + uvData.value)// input current uv from data
     //console.log(uvPara);
     // its appending time
     cityDiv.append(cityName, weatherImg, tempPara, humidityPara, windSpeedPara, uvPara); // append all this to citydiv
@@ -123,7 +123,7 @@ function currentCityForecast(requestData) {
 }
 
 // function to fetch 5 day forecast
-function getApifuture(requestData) {
+function getApiFuture(requestData) {
     var forecastUrl = ("http://api.openweathermap.org/data/2.5/forecast?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2")
     fetch(forecastUrl)
         .then((response) => {
@@ -139,7 +139,7 @@ function getApifuture(requestData) {
             fifthDayForecast(requestData2) // runs fifth day
         });
 };
-// function to show 5 day forecast
+// function to show first day forecast
 function firstDayForecast(requestData2) {
 
     // creating the forecast
@@ -175,6 +175,7 @@ function firstDayForecast(requestData2) {
     dayOneForecast.append(cardDiv); // shows data in first day forecast div
 }
 
+// function to show second day forecast
 function secondDayForecast(requestData2) {
 
     // creating the forecast
@@ -210,6 +211,7 @@ function secondDayForecast(requestData2) {
     dayTwoForecast.append(cardTwoDiv); // show data of second day forecast
 }
 
+// function to show third day forecast
 function thirdDayForecast(requestData2) {
 
     // creating the forecast
@@ -245,6 +247,7 @@ function thirdDayForecast(requestData2) {
     dayThreeForecast.append(cardThreeDiv); // show data for third day forecast
 }
 
+// function to show fourth day forecast
 function fourthDayForecast(requestData2) {
 
     // creating the forecast
@@ -280,6 +283,7 @@ function fourthDayForecast(requestData2) {
     dayFourForecast.append(cardFourDiv); // shows fourth day forecast data
 }
 
+// function to show fifth day forecast
 function fifthDayForecast(requestData2) {
 
     // creating the forecast
@@ -322,4 +326,3 @@ fetchButton.addEventListener("submit", getApi); // works
 // searched city input button works but when click appends a new button.
 // uv converted and needs bg-color text-white
 // local storage is inside, but doesn't save the next city inputted
-// comment comment comment
