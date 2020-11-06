@@ -1,3 +1,6 @@
 .col-sm-2 {
-    margin: 13px;
+    margin: 7px;
+    padding-left: 0!important;
+    padding-right: 0!important;
+    width: fit-content!important;
 }
