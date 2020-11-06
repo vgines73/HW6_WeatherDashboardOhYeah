@@ -146,7 +146,7 @@ function firstDayForecast(requestData2) {
     // console.log(cardBodyDiv); // works
     dateDiv = document.createElement("h5"); // created a h5 element for the date
     dateDiv.setAttribute("style", "card-title"); // set card-title style
-    dateDiv.innerHTML = moment.unix(requestData2.list[1].dt).format("MM/DD/YYYY"); // show date
+    dateDiv.innerHTML = moment.unix(requestData2.list[2].dt).format("MM/DD/YYYY"); // show date
     console.log(dateDiv); // works
     dayOneWeatherImg = document.createElement("img") // create img div
     dayOneWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData2.list[1].weather[0].icon + ".png")
@@ -179,7 +179,7 @@ function secondDayForecast(requestData2) {
     // console.log(cardBodyTwoDiv); // works
     dateTwoDiv = document.createElement("h5"); // created a h5 element for the date
     dateTwoDiv.setAttribute("style", "card-title"); // set card-title style
-    dateTwoDiv.innerHTML = moment.unix(requestData2.list[2].dt).format("MM/DD/YYYY"); // show date
+    dateTwoDiv.innerHTML = moment.unix(requestData2.list[10].dt).format("MM/DD/YYYY"); // show date
     console.log(dateTwoDiv); // works
     dayTwoWeatherImg = document.createElement("img") // create img div
     dayTwoWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData2.list[2].weather[0].icon + ".png")
@@ -213,7 +213,7 @@ function thirdDayForecast(requestData2) {
     // console.log(cardBodyThreeDiv); // works
     dateThreeDiv = document.createElement("h5"); // created a h5 element for the date
     dateThreeDiv.setAttribute("style", "card-title"); // set card-title style
-    dateThreeDiv.innerHTML = moment.unix(requestData2.list[3].dt).format("MM/DD/YYYY"); // show date
+    dateThreeDiv.innerHTML = moment.unix(requestData2.list[25].dt).format("MM/DD/YYYY"); // show date
     console.log(dateThreeDiv); // works
     dayThreeWeatherImg = document.createElement("img") // create img div
     dayThreeWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData2.list[3].weather[0].icon + ".png")
@@ -247,7 +247,7 @@ function fourthDayForecast(requestData2) {
     // console.log(cardBodyFourDiv); // works
     dateFourDiv = document.createElement("h5"); // created a h5 element for the date
     dateFourDiv.setAttribute("style", "card-title"); // set card-title style
-    dateFourDiv.innerHTML = moment.unix(requestData2.list[4].dt).format("MM/DD/YYYY"); // show date
+    dateFourDiv.innerHTML = moment.unix(requestData2.list[30].dt).format("MM/DD/YYYY"); // show date
     console.log(dateFourDiv); // works
     dayFourWeatherImg = document.createElement("img") // create img div
     dayFourWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData2.list[4].weather[0].icon + ".png")
@@ -281,7 +281,7 @@ function fifthDayForecast(requestData2) {
     // console.log(cardBodyFiveDiv); // works
     dateFiveDiv = document.createElement("h5"); // created a h5 element for the date
     dateFiveDiv.setAttribute("style", "card-title"); // set card-title style
-    dateFiveDiv.innerHTML = moment.unix(requestData2.list[5].dt).format("MM/DD/YYYY"); // show date
+    dateFiveDiv.innerHTML = moment.unix(requestData2.list[39].dt).format("MM/DD/YYYY"); // show date
     console.log(dateFiveDiv); // works
     dayFiveWeatherImg = document.createElement("img") // create img div
     dayFiveWeatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData2.list[5].weather[0].icon + ".png")
