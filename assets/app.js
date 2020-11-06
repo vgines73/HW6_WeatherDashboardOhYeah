@@ -112,7 +112,29 @@ function currentCityForecast(requestData) {
     uvPara.classList.add("card-text", "current-uv"); // add class to uv paragraph
     uvPara.setAttribute("href", ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"));
     uvPara.innerHTML = ("UV Index: " + uvData.value)// input current uv from data
-    //console.log(uvPara);
+    console.log(uvPara); // works
+
+    // conditionals for different UV levels
+    if (uvData.value < 3) {
+        document.getElementsByClassName("current-uv"); // grabbing class name
+        inputTextUV.setAttribute("input", "button"); // input button
+        inputTextUV.setAttribute("style", "btn btn-success"); // set button to green
+        uvPara.append(inputTextUV); // append to uvPara
+        console.log(uvPara); 
+    } else if (uvData.value >= 3) {
+        document.getElementsByClassName("current-uv"); // grabbing class name
+        inputTextUV.setAttribute("input", "button"); // input button
+        inputTextUV.setAttribute("style", "btn btn-warning"); // set button color to yellow
+        uvPara.append(inputTextUV); // append to uvPara
+        console.log(uvPara);
+    } else {
+        document.getElementsByClassName("current-uv"); // grabbing class name
+        inputTextUV.setAttribute("input", "button"); // input button
+        inputTextUV.setAttribute("style", "btn btn-danger"); // set button colo to red
+        uvPara.append(inputTextUV); // append to uvPara
+        console.log(uvPara);
+    };
+
     // its appending time
     cityDiv.append(cityName, weatherImg, tempPara, humidityPara, windSpeedPara, uvPara); // append all this to citydiv
     // console.log(cityDiv);     // works
@@ -324,5 +346,5 @@ searchFormEl.addEventListener("submit", formSubmit); // works
 fetchButton.addEventListener("submit", getApi); // works
 
 // searched city input button works but when click appends a new button.
-// uv converted and needs bg-color text-white
-// local storage is inside, but doesn't save the next city inputted
+// uv data comes up undefined. conditionals are there too but can't test it
+
