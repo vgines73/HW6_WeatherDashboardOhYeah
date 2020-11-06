@@ -60,10 +60,11 @@ function getApi(cityInputVal) {
 // function to create a list of cities searched by user
 function results(requestData) {
     createLi = document.createElement("li"); // create li element
+    // need to figure out how to make this an input type button
     createLi.classList.add("list-group-item");
     createLi.innerHTML = requestData.name; // input name of city in li
     createLi.setAttribute("input", "button")
-    console.log(createLi)
+    //console.log(createLi)
     cityList.appendChild(createLi); // append to browser (line 37 in html)
     // console.log(cityList); // works
     createLi.addEventListener("click", clickingCity);
@@ -72,20 +73,42 @@ function results(requestData) {
 // function to click the input buttons of past cities searched
 function clickingCity(e) {
     getApi(e.target.textContent);
-    
+
 }
 
 // function to fetch uv index
 function getUvUrl(requestData) {
     uvUrl = ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2");
-    console.log(uvUrl); // works
+    // console.log(uvUrl); // works
     fetch(uvUrl)
         .then((response) => {
-            console.log(response); // works
+            // console.log(response); // works
             return response.json();
         })
         .then((uvData) => {
-            console.log(uvData) // works
+            // console.log(uvData) // works
+            uvPara.innerHTML = ("UV Index: " + uvData.value) // input current uv from data. Had to move this here to push the uv value. originally at line 117
+
+            // conditionals for different UV levels
+
+            if (uvData.value < 3) {
+                inputTextUV = document.createElement("div")
+                inputTextUV.setAttribute("input", "button"); // input button
+                inputTextUV.setAttribute("style", "btn btn-success"); // set button to green
+                uvPara.append(inputTextUV); // append to uvPara
+                console.log(inputTextUV);
+            } else if (uvData.value >= 3 || uvData.value < 6) {
+                document.getElementsByClassName("current-uv-yellow")
+                console.log(uvData)
+            } else {
+                document.getElementsByClassName("current-uv-green"); // grabbing class name
+                inputTextUV = document.createElement("div")
+                inputTextUV.setAttribute("input", "button"); // input button
+                inputTextUV.setAttribute("style", "btn btn-danger"); // set button colo to red
+                uvPara.append(inputTextUV); // append to uvPara
+                console.log(uvPara);
+            };
+
         })
 };
 // function to show current city weather conditions 
@@ -100,43 +123,20 @@ function currentCityForecast(requestData) {
     weatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData.weather[0].icon + ".png"); // shows weather img
     weatherImg.setAttribute("style", "width: 50px") // added width to make image smaller
     tempPara = document.createElement("p"); // create temp paragragh
-    tempPara.classList.add("card-text", "current-temp"); // add class to temp paragraph
+    tempPara.classList.add("card-text"); // add class to temp paragraph
     tempPara.innerHTML = ("Temperature: " + Math.ceil((requestData.main.temp - 273.15) * 1.80 + 32) + " &deg" + "F"); // shows temp data. 
     humidityPara = document.createElement("p"); // create humidity paragraph
-    humidityPara.classList.add("card-text", "current-humidity"); // add class to humidity paragraph
+    humidityPara.classList.add("card-text"); // add class to humidity paragraph
     humidityPara.innerHTML = ("Humidity: " + requestData.main.humidity + " %"); // shows humidity data
     windSpeedPara = document.createElement("p"); // create wind speed paragraph
-    windSpeedPara.classList.add("card-text", "current-wind-speed"); // add class to wind speed paragraph
+    windSpeedPara.classList.add("card-text"); // add class to wind speed paragraph
     windSpeedPara.innerHTML = ("Wind Speed: " + requestData.wind.speed + " MPH"); // shows wind speed data
     uvPara = document.createElement("p"); // create uv paragraph
-    uvPara.classList.add("card-text", "current-uv"); // add class to uv paragraph
+    uvPara.classList.add("card-text", "current-uv-red", "current-uv-yellow", "current-uv-green"); // add class to uv paragraph
     uvPara.setAttribute("href", ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"));
-    uvPara.innerHTML = ("UV Index: " + uvData.value)// input current uv from data
+    // from line 90: value would come up undefined if ran in here.
     console.log(uvPara); // works
 
-    // conditionals for different UV levels
-    if (uvData.value < 3) {
-        document.getElementsByClassName("current-uv"); // grabbing class name
-        inputTextUV = document.createElement("div")
-        inputTextUV.setAttribute("input", "button"); // input button
-        inputTextUV.setAttribute("style", "btn btn-success"); // set button to green
-        uvPara.append(inputTextUV); // append to uvPara
-        console.log(uvPara); 
-    } else if (uvData.value >= 3) {
-        document.getElementsByClassName("current-uv"); // grabbing class name
-        inputTextUV = document.createElement("div")
-        inputTextUV.setAttribute("input", "button"); // input button
-        inputTextUV.setAttribute("style", "btn btn-warning"); // set button color to yellow
-        uvPara.append(inputTextUV); // append to uvPara
-        console.log(uvPara);
-    } else {
-        document.getElementsByClassName("current-uv"); // grabbing class name
-        inputTextUV = document.createElement("div")
-        inputTextUV.setAttribute("input", "button"); // input button
-        inputTextUV.setAttribute("style", "btn btn-danger"); // set button colo to red
-        uvPara.append(inputTextUV); // append to uvPara
-        console.log(uvPara);
-    };
 
     // its appending time
     cityDiv.append(cityName, weatherImg, tempPara, humidityPara, windSpeedPara, uvPara); // append all this to citydiv

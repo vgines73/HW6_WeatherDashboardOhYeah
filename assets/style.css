@@ -4,3 +4,6 @@
     padding-right: 0!important; /* changed set padding-right from bootstrap to 0 */
     width: fit-content!important; /* changed set width from bootstrap to fit the content */
 }
+.col-sm-2 {
+    background-color: ;
+}
