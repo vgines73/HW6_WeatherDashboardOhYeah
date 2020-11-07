@@ -89,25 +89,6 @@ function getUvUrl(requestData) {
             // console.log(uvData) // works
             uvPara.innerHTML = ("UV Index: " + uvData.value) // input current uv from data. Had to move this here to push the uv value. originally at line 117
 
-            // conditionals for different UV levels
-
-            if (uvData.value < 3) {
-                inputTextUV = document.createElement("div")
-                inputTextUV.setAttribute("input", "button"); // input button
-                inputTextUV.setAttribute("style", "btn btn-success"); // set button to green
-                uvPara.append(inputTextUV); // append to uvPara
-                console.log(inputTextUV);
-            } else if (uvData.value >= 3 || uvData.value < 6) {
-                document.getElementsByClassName("current-uv-yellow")
-                console.log(uvData)
-            } else {
-                document.getElementsByClassName("current-uv-green"); // grabbing class name
-                inputTextUV = document.createElement("div")
-                inputTextUV.setAttribute("input", "button"); // input button
-                inputTextUV.setAttribute("style", "btn btn-danger"); // set button colo to red
-                uvPara.append(inputTextUV); // append to uvPara
-                console.log(uvPara);
-            };
 
         })
 };
@@ -136,6 +117,34 @@ function currentCityForecast(requestData) {
     uvPara.setAttribute("href", ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"));
     // from line 90: value would come up undefined if ran in here.
     console.log(uvPara); // works
+
+    // conditionals for different UV levels
+
+    if (uvData.value < 3) {
+        document.getElementsByClassName("current-uv-green")// grabbing class name
+        inputTextUV = document.createElement("div")
+        inputTextUV.setAttribute("input", "button"); // input button
+        inputTextUV.setAttribute("style", "btn btn-success"); // set button to green
+        uvPara.append(inputTextUV); // append to uvPara
+        ("currentUV").append(inputTextUV)
+        console.log(inputTextUV);
+    } else if (uvData.value >= 3 || uvData.value < 6) {
+        // $(".current-uv-yellow").css("background-color", "yellow");
+        // document.getElementsByClassName("current-uv-yellow").style.background="yellow"// grabbing class name
+        // inputTextUV = document.createElement("div")
+        uvPara.setAttribute("input", "button"); // input button
+        uvPara.setAttribute("style", "background: yellow;  "); // set button to green
+        // uvPara.append(inputTextUV); // append to uvPara
+        
+    } else {
+        document.getElementsByClassName("current-uv"); // grabbing class name
+        inputTextUV = document.createElement("div")
+        inputTextUV.setAttribute("input", "button"); // input button
+        inputTextUV.setAttribute("style", "btn btn-danger"); // set button colo to red
+        uvPara.append(inputTextUV); // append to uvPara
+        console.log(uvPara);
+    };
+
 
 
     // its appending time
