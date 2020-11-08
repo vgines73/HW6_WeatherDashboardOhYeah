@@ -23,7 +23,8 @@ I'm still learning, feeling a little more confident in my work, but still takes 
 
 So today 11/07/2020 I'm not sure if my assignment is functional. I ended up going over my quota for today and it won't give me access. Getting a error 429 code saying failed to load resource: the server responded with a status of 429. So the work I have up to now I haven't pushed and see if it works or if I get errors. I also need to add a screenshot, live link, and repo link. Hopefully everything is okay. I just realized I need a screenshot of my assignment but I have no access today. 
 
- screenshot
+![screenshot] [screencapture-vgines73-github-io-HW6-WeatherDashboardOhYeah-2020-11-08-13_37_10.pdf](https://github.com/vgines73/HW6_WeatherDashboardOhYeah/files/5507217/screencapture-vgines73-github-io-HW6-WeatherDashboardOhYeah-2020-11-08-13_37_10.pdf)
+
  
  [!repo link] https://github.com/vgines73/HW6_WeatherDashboardOhYeah
 
