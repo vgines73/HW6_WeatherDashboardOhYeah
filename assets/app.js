@@ -65,7 +65,7 @@ function getUvUrl(requestData) {
             return response.json();
         })
         .then((uvData) => {
-            uvPara.innerHTML = ("UV Index: " + uvData.value) // input current uv from data. Had to move this here to push the uv value. originally at line 117
+            uvPara.innerHTML = ("UV Index: " + uvData.value) // input current uv from data. Had to move this here to push the uv value.
         })
 };
 
@@ -102,13 +102,11 @@ function currentCityForecast(requestData) {
         currentUVGreen.append(uvPara)
         console.log(currentUVGreen);
     } else if (uvData.value >= 3 || uvData.value < 6) {
-        // $(".current-uv-yellow").css("background-color", "yellow");
         currentUVYellow = document.getElementsByClassName("current-uv-yellow")// grabbing class name
         buttonUV = document.createElement("btn")
         buttonUV.setAttribute("style", "btn btn-warning"); // input button
-        // uvPara.setAttribute("style", "background: yellow;  "); // set button to green
-        currentUVYellow.push(uvData.value); // append to uvPara
-        console.log(buttonUV)
+        currentUVYellow.push(uvData.value, buttonUV); // append to uvPara
+
     } else {
         currentUVRed = document.getElementsByClassName("current-uv-red"); // grabbing class name
         inputTextUV = document.createElement("div")
