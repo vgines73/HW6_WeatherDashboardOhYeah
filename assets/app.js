@@ -27,7 +27,7 @@ function formSubmit(event) {
 // to get the api using fetch
 function getApi(cityInputVal) {
     var myApiKey = "&appid=453aa8aa937d813f343ce451eb44cfc2"
-    var weatherUrl = ("http://api.openweathermap.org/data/2.5/weather?q=" + cityInputVal + myApiKey);
+    var weatherUrl = ("https://api.openweathermap.org/data/2.5/weather?q=" + cityInputVal + myApiKey);
 
     fetch(weatherUrl)
         .then((response) => {
@@ -61,7 +61,7 @@ function clickingCity(e) {
 
 // function to fetch uv index
 function getUvUrl(requestData) {
-    uvUrl = ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2");
+    uvUrl = ("https://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2");
 
     fetch(uvUrl)
         .then((response) => {
@@ -89,7 +89,7 @@ function getUvUrl(requestData) {
             uvPara = document.createElement("p"); // create uv paragraph
             uvParaValue = document.createElement("p")
             uvPara.classList.add("card-text"); // add class to uv paragraph
-            uvPara.setAttribute("href", ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"));
+            uvPara.setAttribute("href", ("https://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"));
             uvPara.innerHTML = "UV Index: " // input current uv from data. Had to move this here to push the uv value.
             uvParaValue.innerHTML = uvData.value;
             uvPara.appendChild(uvParaValue)
@@ -113,7 +113,7 @@ function getUvUrl(requestData) {
 
 // function to fetch 5 day forecast
 function getApiFuture(requestData) {
-    var forecastUrl = ("http://api.openweathermap.org/data/2.5/forecast?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&cnt=50&appid=453aa8aa937d813f343ce451eb44cfc2")
+    var forecastUrl = ("https://api.openweathermap.org/data/2.5/forecast?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&cnt=50&appid=453aa8aa937d813f343ce451eb44cfc2")
     fetch(forecastUrl)
         .then((response) => {
             return response.json();
