@@ -37,7 +37,6 @@ function getApi(cityInputVal) {
         .then((requestData) => {
             results(requestData); // run results function 
             getUvUrl(requestData); // runs getUvUrl function
-            currentCityForecast(requestData); // run currentCityForecast function
             getApiFuture(requestData); // run getApiFuture function
         });
 };
@@ -48,7 +47,7 @@ function results(requestData) {
     createLi.classList.add("list-group-item");
     createLi.innerHTML = requestData.name; // input name of city in li
     cityList.appendChild(createLi); // append to browser (line 37 in html)
-    createLi.addEventListener("click", clickingCity);
+    createLi.addEventListener("click", clickingCity); // click on click previous city to see the city current conditions
 
 };
 // // function to click the input buttons of past cities searched
@@ -59,68 +58,58 @@ function clickingCity(e) {
 // function to fetch uv index
 function getUvUrl(requestData) {
     uvUrl = ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2");
- 
+
     fetch(uvUrl)
         .then((response) => {
             return response.json();
         })
         .then((uvData) => {
+            date = moment.unix(requestData.dt).format("MM/DD/YYYY"); // current date converted unix code with moment
+            cityDiv = document.createElement("div"); // create city div
+            cityDiv.classList.add("card", "card-body"); // add class to city div
+            cityName = document.createElement("h4"); // create h4 element for title city name
+            cityName.classList.add("card-title"); // add class to h4 
+            cityName.innerHTML = requestData.name + " " + "(" + date + ")"
+            weatherImg = document.createElement("img"); // create img div
+            weatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData.weather[0].icon + ".png"); // shows weather img
+            weatherImg.setAttribute("style", "width: 50px") // added width to make image smaller
+            tempPara = document.createElement("p"); // create temp paragragh
+            tempPara.classList.add("card-text"); // add class to temp paragraph
+            tempPara.innerHTML = ("Temperature: " + Math.ceil((requestData.main.temp - 273.15) * 1.80 + 32) + " &deg" + "F"); // shows temp data. 
+            humidityPara = document.createElement("p"); // create humidity paragraph
+            humidityPara.classList.add("card-text"); // add class to humidity paragraph
+            humidityPara.innerHTML = ("Humidity: " + requestData.main.humidity + " %"); // shows humidity data
+            windSpeedPara = document.createElement("p"); // create wind speed paragraph
+            windSpeedPara.classList.add("card-text"); // add class to wind speed paragraph
+            windSpeedPara.innerHTML = ("Wind Speed: " + requestData.wind.speed + " MPH"); // shows wind speed data
+            uvPara = document.createElement("p"); // create uv paragraph
+            uvPara.classList.add("card-text"); // add class to uv paragraph
+            uvPara.setAttribute("href", ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"));
             uvPara.innerHTML = ("UV Index: " + uvData.value) // input current uv from data. Had to move this here to push the uv value.
+
+            // conditionals for different UV levels
+            if (uvData.value < 3) { // if uv value is less then 3 then
+                uvPara.setAttribute("input", "btn btn-success") // add green button to uv paragraph
+                uvPara.setAttribute("style", "background: lawngreen;") //
+                console.log(uvPara)
+            } else if (uvData.value >= 3 || uvData.value < 6) { // if uv value is greater than and equal to 3 or uv value is less than 6 then
+                uvPara.setAttribute("input", "btn btn-warning") // add yellow button to uv paragraph
+                uvPara.setAttribute("class", "button;")
+                uvPara.setAttribute("style", "background: yellow;")
+                console.log(uvPara)
+            } else { // anything over 6
+                uvPara.setAttribute("input", "btn btn-danger") // add green button to uv paragraph
+                uvPara.setAttribute("style", "background: red;")
+                console.log(uvPara)
+            };
+
+            // its appending time
+            cityDiv.append(cityName, weatherImg, tempPara, humidityPara, windSpeedPara, uvPara); // append all this to citydiv
+            currentCity.innerHTML = ""; // clears the current city div to update the new city that was searched
+            currentCity.append(cityDiv); // append cityDiv to currentCity
+
         })
 };
-
-// function to show current city weather conditions 
-function currentCityForecast(requestData) {
-    uvData = [];
-    date = moment.unix(requestData.dt).format("MM/DD/YYYY"); // current date converted unix code with moment
-    cityDiv = document.createElement("div"); // create city div
-    cityDiv.classList.add("card", "card-body"); // add class to city div
-    cityName = document.createElement("h4"); // create h4 element for title city name
-    cityName.classList.add("card-title"); // add class to h4 
-    cityName.innerHTML = requestData.name + " " + "(" + date + ")"
-    weatherImg = document.createElement("img"); // create img div
-    weatherImg.setAttribute("src", "https://openweathermap.org/img/w/" + requestData.weather[0].icon + ".png"); // shows weather img
-    weatherImg.setAttribute("style", "width: 50px") // added width to make image smaller
-    tempPara = document.createElement("p"); // create temp paragragh
-    tempPara.classList.add("card-text"); // add class to temp paragraph
-    tempPara.innerHTML = ("Temperature: " + Math.ceil((requestData.main.temp - 273.15) * 1.80 + 32) + " &deg" + "F"); // shows temp data. 
-    humidityPara = document.createElement("p"); // create humidity paragraph
-    humidityPara.classList.add("card-text"); // add class to humidity paragraph
-    humidityPara.innerHTML = ("Humidity: " + requestData.main.humidity + " %"); // shows humidity data
-    windSpeedPara = document.createElement("p"); // create wind speed paragraph
-    windSpeedPara.classList.add("card-text"); // add class to wind speed paragraph
-    windSpeedPara.innerHTML = ("Wind Speed: " + requestData.wind.speed + " MPH"); // shows wind speed data
-    uvPara = document.createElement("p"); // create uv paragraph
-    uvPara.classList.add("card-text", "current-uv-red", "current-uv-yellow", "current-uv-green"); // add class to uv paragraph
-    uvPara.setAttribute("href", ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"));
-
-    // conditionals for different UV levels
-    if (uvData.value < 3) {
-        currentUVGreen = document.getElementsByClassName("current-uv-green") // grabbing class name
-        uvPara.setAttribute("input", "button"); // input button
-        uvPara.setAttribute("style", "btn btn-success"); // set button to green
-        currentUVGreen.append(uvPara)
-        console.log(currentUVGreen);
-    } else if (uvData.value >= 3 || uvData.value < 6) {
-        currentUVYellow = document.getElementsByClassName("current-uv-yellow")// grabbing class name
-        buttonUV = document.createElement("btn")
-        buttonUV.setAttribute("style", "btn btn-warning"); // input button
-        currentUVYellow.push(uvData.value, buttonUV); // append to uvPara
-
-    } else {
-        currentUVRed = document.getElementsByClassName("current-uv-red"); // grabbing class name
-        inputTextUV = document.createElement("div")
-        inputTextUV.setAttribute("input", "button"); // input button
-        inputTextUV.setAttribute("style", "btn btn-danger"); // set button colo to red
-        uvPara.append(inputTextUV); // append to uvPara
-    };
-
-    // its appending time
-    cityDiv.append(cityName, weatherImg, tempPara, humidityPara, windSpeedPara, uvPara); // append all this to citydiv
-    currentCity.innerHTML = ""; // clears the current city div to update the new city that was searched
-    currentCity.append(cityDiv); // append cityDiv to currentCity
-
-}
 
 // function to fetch 5 day forecast
 function getApiFuture(requestData) {
@@ -129,7 +118,7 @@ function getApiFuture(requestData) {
         .then((response) => {
             return response.json();
         })
-        .then((requestData2) => {       
+        .then((requestData2) => {
             firstDayForecast(requestData2) // runs first day
             secondDayForecast(requestData2) // runs second day
             thirdDayForecast(requestData2) // runs third day
