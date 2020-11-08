@@ -21,12 +21,11 @@ Defined my variables I needed access from html and created functions to get the 
 
 I'm still learning, feeling a little more confident in my work, but still takes me way too long to finish the assignment. I probably spent over 20 hours to do this assignment.  Majority of the time was watching class videos, reviewing the class activities, google fu'ing on how to do this and that, fixing issues but then having other issues after, but in the end I feel I was able to make it look like the finished product and functional. One particular issue I came across was the obtaining the uv index value. Once I obtained the info, I thought I just needed to push the value in. However in the browser, the value would come up undefined. I then thought, maybe if I obtain the uvData first and then get the requestedData next, it would work. Yet still came up undefined. It wasn't until I needed to push the value after fetching it in the getUvUrl function.  
 
-
- demo
+So today 11/07/2020 I'm not sure if my assignment is functional. I ended up going over my quota for today and it won't give me access. Getting a error 429 code saying failed to load resource: the server responded with a status of 429. So the work I have up to now I haven't pushed and see if it works or if I get errors. I also need to add a screenshot, live link, and repo link. Hopefully everything is okay. I just realized I need a screenshot of my assignment but I have no access today. 
 
  screenshot
  
- repo link
+ [!repo link] https://github.com/vgines73/HW6_WeatherDashboardOhYeah
 
- live link
+ ![live link] https://vgines73.github.io/HW6_WeatherDashboardOhYeah/
 
