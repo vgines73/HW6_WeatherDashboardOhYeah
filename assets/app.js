@@ -83,24 +83,20 @@ function getUvUrl(requestData) {
             windSpeedPara.classList.add("card-text"); // add class to wind speed paragraph
             windSpeedPara.innerHTML = ("Wind Speed: " + requestData.wind.speed + " MPH"); // shows wind speed data
             uvPara = document.createElement("p"); // create uv paragraph
+            uvParaValue = document.createElement("p")
             uvPara.classList.add("card-text"); // add class to uv paragraph
             uvPara.setAttribute("href", ("http://api.openweathermap.org/data/2.5/uvi?lat=" + requestData.coord.lat + "&lon=" + requestData.coord.lon + "&appid=453aa8aa937d813f343ce451eb44cfc2"));
-            uvPara.innerHTML = ("UV Index: " + uvData.value) // input current uv from data. Had to move this here to push the uv value.
+            uvPara.innerHTML = "UV Index: " // input current uv from data. Had to move this here to push the uv value.
+            uvParaValue.innerHTML = uvData.value;
+            uvPara.appendChild(uvParaValue)
 
             // conditionals for different UV levels
             if (uvData.value < 3) { // if uv value is less then 3 then
-                uvPara.setAttribute("input", "btn btn-success") // add green button to uv paragraph
-                uvPara.setAttribute("style", "background: lawngreen;") //
-                console.log(uvPara)
-            } else if (uvData.value >= 3 || uvData.value < 6) { // if uv value is greater than and equal to 3 or uv value is less than 6 then
-                uvPara.setAttribute("input", "btn btn-warning") // add yellow button to uv paragraph
-                uvPara.setAttribute("class", "button;")
-                uvPara.setAttribute("style", "background: yellow;")
-                console.log(uvPara)
-            } else { // anything over 6
-                uvPara.setAttribute("input", "btn btn-danger") // add green button to uv paragraph
-                uvPara.setAttribute("style", "background: red;")
-                console.log(uvPara)
+                uvParaValue.setAttribute("class", "btn btn-success") // add green button to uv paragraph
+            } else if (uvData.value >= 3 || uvData.value < 8) { // if uv value is greater than and equal to 3 or uv value is less than 6 then
+                uvParaValue.setAttribute("class", "btn btn-warning") // add yellow button to uv paragraph
+            } else { // anything over 8
+                uvParaValue.setAttribute("input", "btn btn-danger") // add green button to uv paragraph
             };
 
             // its appending time
