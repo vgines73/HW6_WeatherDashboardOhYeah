@@ -36,7 +36,7 @@ function getApi(cityInputVal) {
         .then((requestData) => {
             if (cityInputVal !== requestData.name) {
                 alert("It's not a city. Please enter the name of the city.") // alerts the user they entered an unknown city
-                return // starts over
+                return // starts
             }
     
             results(requestData); // run results function 
@@ -51,14 +51,13 @@ function results(requestData) {
     createLi.classList.add("list-group-item");
     createLi.innerHTML = requestData.name; // input name of city in li
     cityList.appendChild(createLi); // append to browser (line 37 in html)
-    createLi.addEventListener("click", clickingCity); // click on click previous city to see the city current conditions
+    // createLi.addEventListener("click", clickingCity); // click on click previous city to see the city current conditions
 
 };
 // // function to click the input buttons of past cities searched
-function clickingCity(e) {
-    getApi(e.target.textContent);
-    
-}
+// function clickingCity(e) {
+//     getApi(e.target.textContent);
+// }
 
 // function to fetch uv index
 function getUvUrl(requestData) {
