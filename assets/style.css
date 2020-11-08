@@ -1,3 +1,11 @@
+
+.col-sm-3 {
+    background-color: #f5f5f5;
+}
+.search-bar {
+    padding-right: 30px!important
+
+}
 .col-sm-2 {
     margin: 7px; /* spacing in between forecast */
     padding-left: 0!important; /* changed set padding-left from bootstrap to 0 */
