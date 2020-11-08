@@ -14,10 +14,9 @@ var dayFiveForecast = document.querySelector("#day-five-forecast")
 function formSubmit(event) {
     event.preventDefault();
 
-    cityInputVal = document.querySelector("#search-city").value;
+    cityInputVal = document.querySelector("#search-city").value.trim();
     if (!cityInputVal) {  // if user types an unknown city
-        console.error("You need type in a city I know");
-        alert("You need to type in a city I know") // alert pops up for aware the user
+        alert("Please enter a city.") // alert pops up for aware the user
         return; // starts over
     }
     getApi(cityInputVal); // obtain the city input
@@ -35,6 +34,11 @@ function getApi(cityInputVal) {
             return response.json();
         })
         .then((requestData) => {
+            if (cityInputVal !== requestData.name) {
+                alert("It's not a city. Please enter the name of the city.") // alerts the user they entered an unknown city
+                return // starts over
+            }
+    
             results(requestData); // run results function 
             getUvUrl(requestData); // runs getUvUrl function
             getApiFuture(requestData); // run getApiFuture function
@@ -53,6 +57,7 @@ function results(requestData) {
 // // function to click the input buttons of past cities searched
 function clickingCity(e) {
     getApi(e.target.textContent);
+    
 }
 
 // function to fetch uv index
